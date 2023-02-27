@@ -20,8 +20,8 @@
                 商户管理
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">订单管理</a></li>
-                <li><a class="dropdown-item" href="#">购物网站</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('order.index') }}">订单管理</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('shop.index') }}">购物网站</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -29,7 +29,7 @@
                 收款网站
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">stripe管理</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('stripe.index') }}">stripe管理</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -43,7 +43,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">运行日志</a>
+              <a class="nav-link" href="{{ url_for('logs.index') }}">运行日志</a>
             </li>
           </ul>
         </div>
