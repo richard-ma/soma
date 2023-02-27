@@ -1,11 +1,19 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
 @bp.route("/")
-def index():
+@bp.route("/ping")
+def ping():
     return jsonify({
-        'name': 'hello',
-        'gender': 'world'
+        'message': 'pong'
+    })
+
+
+@bp.route('/post_data_test', methods=['GET', 'POST'])
+def post_data_test():
+    return jsonify({
+        'form': request.form,
+        'json': request.json,
     })
