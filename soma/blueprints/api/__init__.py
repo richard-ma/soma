@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 
 
-bp = Blueprint('api', __name__, url_prefix='/api', template_folder='templates')
+bp = Blueprint('api', __name__, url_prefix='/api')
 
 @bp.route("/")
 def index():
