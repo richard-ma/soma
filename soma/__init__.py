@@ -1,8 +1,13 @@
 from flask import Flask, redirect, url_for
 from soma.blueprints import api, order, shop, logs, stripe
+from soma.config import db
 
 
 app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///soma.db"
+db.init(app)
+
 app.register_blueprint(api.bp)
 app.register_blueprint(order.bp)
 app.register_blueprint(shop.bp)
