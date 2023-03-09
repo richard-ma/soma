@@ -18,5 +18,11 @@ def create_app(config_filename=None):
     @app.route("/")
     def index():
         return redirect(url_for('order.index'))
+    
+    @app.template_filter('timestamp_to_datetime')
+    def timestamp_to_datetime(s):
+        from datetime import datetime
+        obj = datetime.fromtimestamp(s)
+        return obj
 
     return app

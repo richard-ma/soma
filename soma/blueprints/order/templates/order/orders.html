@@ -26,7 +26,7 @@
         <td>{{ order.total }}</td>
         <td>{{ order.currencyCode }}</td>
         <td>{{ order.status }}</td>
-        <td>{{ order.createtime }}</td>
+        <td>{{ order.createtime | timestamp_to_datetime }}</td>
         <td>{{ order.username }}</td>
         <td>{{ order.ip }}</td>
       </tr>
