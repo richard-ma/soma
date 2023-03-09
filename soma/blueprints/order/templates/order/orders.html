@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">系统单号</th>
+        <th scope="col">购物网站</th>
+        <th scope="col">网站单号</th>
+        <th scope="col">付款方式</th>
+        <th scope="col">总计</th>
+        <th scope="col">币种</th>
+        <th scope="col">订单状态</th>
+        <th scope="col">下单时间</th>
+        <th scope="col">收货人</th>
+        <th scope="col">IP地址</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.url }}</td>
+        <td>{{ order.orderid }}</td>
+        <td>{{ order.payway }}</td>
+        <td>{{ order.total }}</td>
+        <td>{{ order.currencyCode }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.createtime }}</td>
+        <td>{{ order.username }}</td>
+        <td>{{ order.ip }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
