@@ -19,6 +19,7 @@ def create_app(config_filename=None):
     def index():
         return redirect(url_for('order.index'))
     
+    # template filter
     @app.template_filter('timestamp_to_datetime')
     def timestamp_to_datetime(s):
         from datetime import datetime
