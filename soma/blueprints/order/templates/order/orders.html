@@ -20,7 +20,7 @@
       {% for order in orders %}
       <tr>
         <td>{{ order.id }}</td>
-        <td>{{ order.url }}</td>
+        <td><a href="{{ order.url }}">{{ order.url }}</a></td>
         <td>{{ order.orderid }}</td>
         <td>{{ order.payway }}</td>
         <td>{{ order.total }}</td>
