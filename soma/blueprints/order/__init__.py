@@ -10,5 +10,5 @@ def index():
 
 @bp.route("/orders")
 def orders():
-    orders = db.session.execute(db.select(Order).order_by(Order.id)).scalars()
+    orders = db.session.execute(db.select(Order).order_by(Order.id.desc())).scalars()
     return render_template("order/orders.html", orders=orders)
