@@ -28,7 +28,9 @@
       {% for stripe in stripes %}
       <tr>
         <td>{{ stripe.id }}</td>
-        <td><a href="{{ stripe.url }}">{{ stripe.url }}</a></td>
+        <td><a href="{{ stripe.purl }}">{{ stripe.purl }}</a></td>
+        <td>{{ stripe.email }}</td>
+        <td>{{ stripe.mode }}</td>
         <td>{{ "enable" }}</td>
         <td>{{ "env" }}</td>
         <td>{{ "mode" }}</td>
@@ -40,7 +42,7 @@
         <td>{{ stripe.totalnum }}</td>
         <td>{{ stripe.curnum }}</td>
         <td>{{ stripe.status }}</td>
-        <td>{{ stripe.lasttime }}</td>
+        <td>{{ stripe.lasttime | timestamp_to_datetime }}</td>
         <td>{{ stripe.beizhu }}</td>
         <td>{{ stripe.updatetime | timestamp_to_datetime }}</td>
       </tr>
