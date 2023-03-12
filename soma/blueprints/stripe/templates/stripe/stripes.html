@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">编号</th>
+        <th scope="col">跳转B站地址</th>
+        <th scope="col">stripe账户</th>
+        <th scope="col">账户类型</th>
+        <th scope="col">启用</th>
+        <th scope="col">支付环境</th>
+        <th scope="col">支付模式</th>
+        <th scope="col">收款限定</th>
+        <th scope="col">单笔最小金额</th>
+        <th scope="col">单笔最大金额</th>
+        <th scope="col">限定收款金额</th>
+        <th scope="col">当前收款金额</th>
+        <th scope="col">限定收款笔数</th>
+        <th scope="col">当前收款笔数</th>
+        <th scope="col">每日收款计划</th>
+        <th scope="col">最后调用</th>
+        <th scope="col">备注</th>
+        <th scope="col">更新时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stripe in stripes %}
+      <tr>
+        <td>{{ stripe.id }}</td>
+        <td><a href="{{ stripe.url }}">{{ stripe.url }}</a></td>
+        <td>{{ "enable" }}</td>
+        <td>{{ "env" }}</td>
+        <td>{{ "mode" }}</td>
+        <td>{{ stripe.limitway }}</td>
+        <td>{{ stripe.onemin }}</td>
+        <td>{{ stripe.onemax }}</td>
+        <td>{{ stripe.totalmoney }}</td>
+        <td>{{ stripe.curmoney }}</td>
+        <td>{{ stripe.totalnum }}</td>
+        <td>{{ stripe.curnum }}</td>
+        <td>{{ stripe.status }}</td>
+        <td>{{ stripe.lasttime }}</td>
+        <td>{{ stripe.beizhu }}</td>
+        <td>{{ stripe.updatetime | timestamp_to_datetime }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
