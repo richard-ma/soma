@@ -10,5 +10,5 @@ def index():
 
 @bp.route("/shops")
 def shops():
-    shops = db.session.execute(db.select(Shop).order_by(Shop.id)).scalars()
+    shops = db.session.execute(db.select(Shop).order_by(Shop.id.desc())).scalars()
     return render_template("shop/shops.html", shops=shops)
