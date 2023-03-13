@@ -11,4 +11,4 @@ def index():
 @bp.route("/stripes")
 def stripes():
     stripes = db.session.execute(db.select(Stripe).order_by(Stripe.id.desc())).scalars()
-    return render_template("stripe/stripes.html", stripes=stripes)
+    return render_template("stripe/list.html", stripes=stripes)
