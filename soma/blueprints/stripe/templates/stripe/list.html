@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
+{% block toolbar %}
+<div class="btn-group" role="group" aria-label="tools">
+  <button type="button" class="btn btn-success">添加</button>
+  <button type="button" class="btn btn-danger">删除</button>
+</div>
+{% endblock %}
+
 {% block content %}
 <table class="table">
     <thead>
