@@ -2,7 +2,11 @@
   {% if field.type == "StringField" or field.type == "IntegerField" %}
     <div class="mb-3">
       <label class="form-label">{{ field.label }}</label>
-      {{ field(**kwargs)|safe }}
+      {% if field.default != None %}
+        {{ field(value=field.default, **kwargs)|safe }}
+      {% else %}
+        {{ field(**kwargs)|safe }}
+      {% endif %}
     </div>
   {% elif field.type == "BooleanField" %}
     <div class="mb-3 form-check">

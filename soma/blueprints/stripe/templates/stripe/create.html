@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{{ url_for('stripe.create') }}" method="post">
+  {{ render_field(form.status, class_="form-check-input") }}
+  {{ render_field(form.purl, class_="form-control", placeholder="http://www.example.com") }}
+  {{ render_field(form.email, class_="form-control", placeholder="account@stripe.com") }}
+  {{ render_field(form.onemin, class_="form-control") }}
+  {{ render_field(form.onemax, class_="form-control") }}
+  {{ render_field(form.totalmoney, class_="form-control") }}
+  {{ render_field(form.totalnum, class_="form-control") }}
+  {{ render_field(form.beizhu, class_="form-control") }}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
