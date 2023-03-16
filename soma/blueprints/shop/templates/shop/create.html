@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{{ url_for('shop.create') }}" method="post">
+  {{ render_field(form.status, class_="form-check-input") }}
+  {{ render_field(form.url, class_="form-control", placeholder="http://www.example.com") }}
+  {{ render_field(form.beizhu, class_="form-control") }}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% macro render_field(field) %}
+  {% if field.type == "StringField" or field.type == "IntegerField" %}
+    <div class="mb-3">
+      <label class="form-label">{{ field.label }}</label>
+      {{ field(**kwargs)|safe }}
+    </div>
+  {% elif field.type == "BooleanField" %}
+    <div class="mb-3 form-check">
+      {{ field(**kwargs)|safe }}
+      <label class="form-check-label">{{ field.label }}</label>
+    </div>
+  {% elif field.type == "TextAreaField" %}
+    <div class="form-floating">
+      {{ field(**kwargs)|safe }}
+      <label>{{ field.label }}</label>
+    </div>
+  {% else %}
+    <h1>{{ field.type }} not rendered.</h1>
+  {% endif %}
+{% endmacro %}

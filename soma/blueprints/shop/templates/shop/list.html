@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
+{% block toolbar %}
+<div class="btn-group" role="group" aria-label="tools">
+  <a type="button" class="btn btn-success" href="{{ url_for('shop.create') }}">添加</a>
+  <a type="button" class="btn btn-danger" href="#">删除</a>
+</div>
+{% endblock %}
+
 {% block content %}
 <table class="table">
     <thead>
