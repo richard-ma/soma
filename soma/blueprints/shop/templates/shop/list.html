@@ -26,7 +26,11 @@
         <td>{{ shop.id }}</td>
         <td><a href="{{ shop.url }}">{{ shop.url }}</a></td>
         <td>{{ shop.sitegroup }}</td>
-        <td>{{ shop.status }}</td>
+        <td>
+          <button type="button" class="btn {% if shop.status == 1 %}btn-success{% else %}btn-danger{% endif %}">
+            {{ shop.status | status_display }}
+          </button>
+        </td>
         <td>{{ shop.risk }}</td>
         <td>{{ shop.beizhu }}</td>
         <td>{{ shop.updatetime | timestamp_to_datetime }}</td>

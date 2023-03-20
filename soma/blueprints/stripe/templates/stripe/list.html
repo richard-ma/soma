@@ -38,7 +38,11 @@
         <td><a href="{{ stripe.purl }}">{{ stripe.purl }}</a></td>
         <td>{{ stripe.email }}</td>
         <td>{{ stripe.mode }}</td>
-        <td>{{ "enable" }}</td>
+        <td>
+          <button type="button" class="btn {% if stripe.status == 1 %}btn-success{% else %}btn-danger{% endif %}">
+            {{ stripe.status | status_display }}
+          </button>
+        </td>
         <td>{{ "env" }}</td>
         <td>{{ "mode" }}</td>
         <td>{{ stripe.limitway }}</td>

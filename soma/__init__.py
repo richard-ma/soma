@@ -25,4 +25,8 @@ def create_app(config_filename=None):
     def timestamp_to_datetime(s):
         return helper_timestamp_to_datetime(s)
 
+    @app.template_filter('status_display')
+    def status_display(s):
+        return helper_status_display(s)
+
     return app
