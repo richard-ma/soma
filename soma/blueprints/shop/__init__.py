@@ -15,6 +15,20 @@ def shops():
     shops = db.session.execute(db.select(Shop).order_by(Shop.id.desc())).scalars()
     return render_template("shop/list.html", shops=shops)
 
+@bp.route("/enable/<int:id>")
+def enable(id):
+    shop = db.get_or_404(Shop, id)
+    shop.status = True
+    db.session.commit()
+    return redirect(url_for("shop.index"))
+
+@bp.route("/disable/<int:id>")
+def disable(id):
+    shop = db.get_or_404(Shop, id)
+    shop.status = False
+    db.session.commit()
+    return redirect(url_for("shop.index"))
+
 @bp.route("/create", methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
