@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for
 from soma.blueprints import api, order, shop, logs, stripe
 from soma.models import db, migrate
+from soma.helpers import *
 
 def create_app(config_filename=None):
     app = Flask(__name__)
@@ -22,8 +23,6 @@ def create_app(config_filename=None):
     # template filter
     @app.template_filter('timestamp_to_datetime')
     def timestamp_to_datetime(s):
-        from datetime import datetime
-        obj = datetime.fromtimestamp(s)
-        return obj
+        return helper_timestamp_to_datetime(s)
 
     return app
