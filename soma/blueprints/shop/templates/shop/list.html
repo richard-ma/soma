@@ -27,7 +27,7 @@
         <td><a href="{{ shop.url }}">{{ shop.url }}</a></td>
         <td>{{ shop.sitegroup }}</td>
         <td>
-          <a type="button" class="btn {% if shop.status == 1 %}btn-success{% else %}btn-danger{% endif %}" href="{% if shop.status == 0 %}{{ url_for('shop.enable', id=shop.id) }}{% else %}{{ url_for('shop.disable', id=shop.id) }}{% endif %}">
+          <a type="button" class="btn {% if shop.is_enabled %}btn-success{% else %}btn-danger{% endif %}" href="{% if shop.is_enabled %}{{ url_for('shop.disable', id=shop.id) }}{% else %}{{ url_for('shop.enable', id=shop.id) }}{% endif %}">
             {{ shop.status | status_display }}
           </a>
         </td>

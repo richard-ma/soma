@@ -65,6 +65,10 @@ class Shop(db.Model):
     paypalname_me = db.Column(db.String(255), default='')
     donatename = db.Column(db.String(255), default='')
 
+    @property
+    def is_enabled(self):
+        return self.status == 1
+
 class Stripe(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, comment='编号')
     url = db.Column(db.String(255), nullable=False, comment='收款站地址')
@@ -90,3 +94,7 @@ class Stripe(db.Model):
     lasttime = db.Column(db.Integer, default=0)
     admin_id = db.Column(db.Integer)
     purl = db.Column(db.String(255), default='')
+
+    @property
+    def is_enabled(self):
+        return self.status == 1
