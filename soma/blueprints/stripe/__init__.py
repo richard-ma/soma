@@ -15,6 +15,20 @@ def stripes():
     stripes = db.session.execute(db.select(Stripe).order_by(Stripe.id.desc())).scalars()
     return render_template("stripe/list.html", stripes=stripes)
 
+@bp.route("/enable/<int:id>")
+def enable(id):
+    stripe = db.get_or_404(Stripe, id)
+    stripe.status = True
+    db.session.commit()
+    return redirect(url_for("stripe.index"))
+
+@bp.route("/disable/<int:id>")
+def disable(id):
+    stripe = db.get_or_404(Stripe, id)
+    stripe.status = False
+    db.session.commit()
+    return redirect(url_for("stripe.index"))
+
 @bp.route("/create", methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':

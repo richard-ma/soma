@@ -39,9 +39,9 @@
         <td>{{ stripe.email }}</td>
         <td>{{ stripe.mode }}</td>
         <td>
-          <button type="button" class="btn {% if stripe.status == 1 %}btn-success{% else %}btn-danger{% endif %}">
+          <a type="button" class="btn {% if stripe.status == 1 %}btn-success{% else %}btn-danger{% endif %}" href="{% if stripe.status == 0 %}{{ url_for('stripe.enable', id=stripe.id) }}{% else %}{{ url_for('stripe.disable', id=stripe.id) }}{% endif %}">
             {{ stripe.status | status_display }}
-          </button>
+          </a>
         </td>
         <td>{{ "env" }}</td>
         <td>{{ "mode" }}</td>
