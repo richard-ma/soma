@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from soma.models import db, Stripe
 from soma.forms import CreateStripeForm
+from soma.helpers import *
 
 
 bp = Blueprint('stripe', __name__, url_prefix='/stripe', template_folder='templates')
@@ -29,14 +30,14 @@ def create():
             totalnum = request.form['totalnum'],
             status = 1 if request.form['status'] == 'y' else 0,
             beizhu = request.form['beizhu'],
-            updatetime = 12333,
+            updatetime = helper_datetime_to_timestamp(datetime.now()),
             scid = '',
             lcid = '',
             ssid = '',
             lsid = '',
             type = '0',
             sid = 0,
-            lasttime = 12333,
+            lasttime = helper_datetime_to_timestamp(datetime.now()),
             admin_id = 0,
             purl = request.form['purl']
         )
