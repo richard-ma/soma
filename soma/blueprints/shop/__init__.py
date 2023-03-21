@@ -34,7 +34,7 @@ def create():
     if request.method == 'POST':
         shop = Shop(
             url = request.form['url'],
-            status = 1 if request.form['status'] == 'y' else 0,
+            status = 1 if 'status' in request.form.keys()  else 0,
             beizhu = request.form['beizhu'],
             sitegroup = 1,
             paypaltype = '1',

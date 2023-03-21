@@ -42,7 +42,7 @@ def create():
             onemax = request.form['onemax'],
             totalmoney = request.form['totalmoney'],
             totalnum = request.form['totalnum'],
-            status = 1 if request.form['status'] == 'y' else 0,
+            status = 1 if 'status' in request.form.keys() else 0,
             beizhu = request.form['beizhu'],
             updatetime = helper_datetime_to_timestamp(datetime.now()),
             scid = '',
