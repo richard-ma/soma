@@ -29,6 +29,13 @@ def disable(id):
     db.session.commit()
     return redirect(url_for("shop.index"))
 
+@bp.route("/delete/<int:id>")
+def delete(id):
+    shop = db.get_or_404(Shop, id)
+    db.session.delete(shop)
+    db.session.commit()
+    return redirect(url_for("shop.index"))
+
 @bp.route("/create", methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':

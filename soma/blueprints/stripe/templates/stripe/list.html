@@ -29,6 +29,7 @@
         <th scope="col">最后调用</th>
         <th scope="col">备注</th>
         <th scope="col">更新时间</th>
+        <th scope="col">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -56,6 +57,9 @@
         <td>{{ stripe.lasttime | timestamp_to_datetime }}</td>
         <td>{{ stripe.beizhu }}</td>
         <td>{{ stripe.updatetime | timestamp_to_datetime }}</td>
+        <td>
+          <a type="button" href="{{ url_for('stripe.delete', id=stripe.id) }}">删除</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

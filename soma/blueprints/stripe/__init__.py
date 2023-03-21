@@ -29,6 +29,13 @@ def disable(id):
     db.session.commit()
     return redirect(url_for("stripe.index"))
 
+@bp.route("/delete/<int:id>")
+def delete(id):
+    stripe = db.get_or_404(Stripe, id)
+    db.session.delete(stripe)
+    db.session.commit()
+    return redirect(url_for("stripe.index"))
+
 @bp.route("/create", methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':

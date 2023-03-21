@@ -18,6 +18,7 @@
         <th scope="col">系统风控</th>
         <th scope="col">备注</th>
         <th scope="col">更新时间</th>
+        <th scope="col">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -34,6 +35,9 @@
         <td>{{ shop.risk }}</td>
         <td>{{ shop.beizhu }}</td>
         <td>{{ shop.updatetime | timestamp_to_datetime }}</td>
+        <td>
+          <a type="button" href="{{ url_for('shop.delete', id=shop.id) }}">删除</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
