@@ -4,7 +4,7 @@ import requests
 if __name__ == "__main__":
     url = 'http://127.0.0.1:5000/api/post_form_test'
     data = {
-        'url': 'url_value',
+        'url': 'http://www.shoponline.com',
         'merkey': 'merkey_value',
         'mode': 'mode_value',
         'cardNumberKeyValue': 'cardNumberKeyValue_value',

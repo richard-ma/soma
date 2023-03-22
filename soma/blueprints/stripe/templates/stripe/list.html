@@ -58,7 +58,9 @@
         <td>{{ stripe.beizhu }}</td>
         <td>{{ stripe.updatetime | timestamp_to_datetime }}</td>
         <td>
-          <a type="button" href="{{ url_for('stripe.delete', id=stripe.id) }}">删除</a>
+          <a type="button" href="{{ url_for('stripe.delete', id=stripe.id) }}">
+            <i class="bi-trash"></i>
+          </a>
         </td>
       </tr>
       {% endfor %}
