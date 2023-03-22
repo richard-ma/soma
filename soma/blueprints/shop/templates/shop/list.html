@@ -36,7 +36,9 @@
         <td>{{ shop.beizhu }}</td>
         <td>{{ shop.updatetime | timestamp_to_datetime }}</td>
         <td>
-          <a type="button" href="{{ url_for('shop.delete', id=shop.id) }}">删除</a>
+          <a type="button" href="{{ url_for('shop.delete', id=shop.id) }}">
+            <i class="bi-trash"></i>
+          </a>
         </td>
       </tr>
       {% endfor %}
