@@ -26,7 +26,9 @@
         <td>{{ currency.code }}</td>
         <td>{{ currency.value }}</td>
         <td>
-          <a type="button" href="{{ url_for('settings.currency_delete', id=currency.id) }}">删除</a>
+          <a type="button" href="{{ url_for('settings.currency_delete', id=currency.id) }}">
+            <i class="bi-trash"></i>
+          </a>
         </td>
       </tr>
       {% endfor %}
