@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">货币ID</th>
+        <th scope="col">名称</th>
+        <th scope="col">币种代码</th>
+        <th scope="col">汇率</th>
+        <th scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for currency in currencies %}
+      <tr>
+        <td>{{ currency.id }}</td>
+        <td>{{ currency.name }}</td>
+        <td>{{ currency.code }}</td>
+        <td>{{ currency.value }}</td>
+        <td>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

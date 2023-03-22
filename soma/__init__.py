@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for
-from soma.blueprints import api, order, shop, logs, stripe
+from soma.blueprints import api, order, shop, logs, stripe, settings
 from soma.models import db, migrate
 from soma.helpers import *
 
@@ -15,6 +15,7 @@ def create_app(config_filename=None):
     app.register_blueprint(shop.bp)
     app.register_blueprint(stripe.bp)
     app.register_blueprint(logs.bp)
+    app.register_blueprint(settings.bp)
 
     @app.route("/")
     def index():
