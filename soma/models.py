@@ -64,6 +64,7 @@ class Shop(db.Model):
     admin_id = db.Column(db.Integer)
     paypalname_me = db.Column(db.String(255), default='')
     donatename = db.Column(db.String(255), default='')
+    apikey = db.Column(db.String(64), nullable=False, default='', comment='API Key')
 
     @property
     def is_enabled(self):
