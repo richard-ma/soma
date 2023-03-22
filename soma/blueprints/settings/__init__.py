@@ -14,6 +14,13 @@ def currency_currencies():
     currencies = db.session.execute(db.select(Currency).order_by(Currency.id.desc())).scalars()
     return render_template("settings/currency/currencies.html", currencies=currencies)
 
+@bp.route("/currency/delete/<int:id>")
+def currency_delete(id):
+    currency = db.get_or_404(Currency, id)
+    db.session.delete(currency)
+    db.session.commit()
+    return redirect(url_for("settings.currency_currencies"))
+
 @bp.route("/currency/create", methods=['GET', 'POST'])
 def currency_create():
     if request.method == 'POST':
