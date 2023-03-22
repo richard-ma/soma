@@ -52,6 +52,7 @@ def create():
             type = None,
             risk = None,
             admin_id = None,
+            apikey = helper_generate_api_key(request.form['url']),
         )
 
         db.session.add(shop)
