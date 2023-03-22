@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{{ url_for('settings.currency_create') }}" method="post">
+  {{ render_field(form.name, class_="form-control", placeholder="美元") }}
+  {{ render_field(form.code, class_="form-control", placeholder="USD") }}
+  {{ render_field(form.value, class_="form-control", placeholder="1.00") }}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

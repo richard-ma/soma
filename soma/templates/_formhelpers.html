@@ -1,5 +1,5 @@
 {% macro render_field(field) %}
-  {% if field.type == "StringField" or field.type == "IntegerField" %}
+  {% if field.type == "StringField" or field.type == "IntegerField" or field.type == "FloatField" %}
     <div class="mb-3">
       <label class="form-label">{{ field.label }}</label>
       {% if field.default != None %}
