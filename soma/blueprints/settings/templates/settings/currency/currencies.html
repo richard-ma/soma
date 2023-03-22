@@ -24,7 +24,7 @@
         <td>{{ currency.id }}</td>
         <td>{{ currency.name }}</td>
         <td>{{ currency.code }}</td>
-        <td>{{ currency.value }}</td>
+        <td>{{ currency.value | round(2) }}</td>
         <td>
           <a type="button" href="{{ url_for('settings.currency_delete', id=currency.id) }}">
             <i class="bi-trash"></i>
