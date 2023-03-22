@@ -27,7 +27,7 @@ def currency_create():
         currency = Currency(
             name = request.form.get('name', ''),
             code = request.form.get('code', '').upper(),
-            value = float(request.form.get('value', 0.00))
+            value = float(request.form.get('value', '0.00'))
         )
         
         db.session.add(currency)
