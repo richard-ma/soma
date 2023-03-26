@@ -101,8 +101,10 @@ class Stripe(db.Model):
         return self.status == 1
 
 class Currency(db.Model):
-    id = db.Column(db.Integer, primary_key=True, nullable=False, comment='货币ID')
-    code = db.Column(db.String(10), nullable=False, default='', comment='币种代码')
+    code = db.Column(db.String(10), primary_key=True, nullable=False, comment='币种代码')
     name = db.Column(db.String(100), nullable=False, comment='名称')
     value = db.Column(db.Float(10, 2), nullable=False, default=0.00, comment='汇率')
     admin_id = db.Column(db.Integer, default=None)
+
+    def code_is(self, currency_code: str) -> bool:
+        return self.code.upper() == currency_code.upper()
