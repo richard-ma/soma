@@ -108,7 +108,7 @@ def total(money, currency_code, order_id):
     if currency_code == 'USD':
         return money
     
-    first_currency = db.session.execute(db.select(Currency).where(Currency.code==currency_code).order_by(Currency.id.desc())).scalar()
+    first_currency = db.session.execute(db.select(Currency).where(Currency.code==currency_code).order_by(Currency.code.desc())).scalar()
     if first_currency is None:
         pass
         # TODO log error: 币种不存在
