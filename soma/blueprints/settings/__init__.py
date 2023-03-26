@@ -11,12 +11,12 @@ def index():
 
 @bp.route("/currency/currencies")
 def currency_currencies():
-    currencies = db.session.execute(db.select(Currency).order_by(Currency.id.desc())).scalars()
+    currencies = db.session.execute(db.select(Currency).order_by(Currency.code.desc())).scalars()
     return render_template("settings/currency/currencies.html", currencies=currencies)
 
-@bp.route("/currency/delete/<int:id>")
-def currency_delete(id):
-    currency = db.get_or_404(Currency, id)
+@bp.route("/currency/delete/<string:code>")
+def currency_delete(code):
+    currency = db.get_or_404(Currency, code)
     db.session.delete(currency)
     db.session.commit()
     return redirect(url_for("settings.currency_currencies"))
@@ -27,7 +27,7 @@ def currency_create():
         currency = Currency(
             name = request.form.get('name', ''),
             code = request.form.get('code', '').upper(),
-            value = float(request.form.get('value', '0.00'))
+            value = float(request.form.get('value', '1.00')) # TODO add requeired validator
         )
         
         db.session.add(currency)

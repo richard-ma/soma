@@ -11,7 +11,6 @@
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">货币ID</th>
         <th scope="col">名称</th>
         <th scope="col">币种代码</th>
         <th scope="col">汇率</th>
@@ -21,12 +20,11 @@
     <tbody>
       {% for currency in currencies %}
       <tr>
-        <td>{{ currency.id }}</td>
         <td>{{ currency.name }}</td>
         <td>{{ currency.code }}</td>
         <td>{{ currency.value | round(2) }}</td>
         <td>
-          <a type="button" href="{{ url_for('settings.currency_delete', id=currency.id) }}">
+          <a type="button" href="{{ url_for('settings.currency_delete', code=currency.code) }}">
             <i class="bi-trash"></i>
           </a>
         </td>
