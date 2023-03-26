@@ -23,7 +23,7 @@
         <td><a href="{{ order.url }}">{{ order.url }}</a></td>
         <td>{{ order.orderid }}</td>
         <td>{{ order.payway }}</td>
-        <td>{{ order.total }}</td>
+        <td>{{ order.total | round(2) }}</td>
         <td>{{ order.currencyCode }}</td>
         <td>{{ order.status }}</td>
         <td>{{ order.createtime | timestamp_to_datetime }}</td>
