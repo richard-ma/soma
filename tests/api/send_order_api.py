@@ -2,7 +2,7 @@ import requests
 
 
 if __name__ == "__main__":
-    url = 'http://127.0.0.1:5000/api/post_form_test'
+    url = 'http://127.0.0.1:5000/api/stripe'
     data = {
         'url': 'http://www.shoponline.com',
         'merkey': 'merkey_value',
@@ -13,8 +13,8 @@ if __name__ == "__main__":
         'cvv': 'cvv_value',
         'orderid': 'orderid_value',
         'wtype': 'wtype_value',
-        'total': 'total_value',
-        'currency': 'currency_value',
+        'total': '33',
+        'currency': 'gbp',
         'firstname': 'firstname_value',
         'username': 'username_value',
         'email': 'email_value',
