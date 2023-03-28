@@ -23,16 +23,19 @@ def post_form_test():
 # insert order data and select payment stripe site
 @bp.route('/stripe', methods=['GET', 'POST']) # TODO remove GET method
 def stripe_payment():
-    # 选择满足条件的stripe网站
-    # 金额 > 单笔最小收款金额
-    # 金额 < 单笔最大收款金额
-    # 金额 + 当前收款金额 < 限定收款金额
-    # 当前收款笔数 < 限定收款笔数
-    # curnum < totalnum
+    url = request.form.get('url', '')
+    merkey = request.form.get('merkey', '')
 
-    # 更新stripe
-    # 当前收款笔数+1 curnum += 1
-    # 当前收款金额+金额 curmoney += 
+    if url == '' or merkey == '':
+        pass # TODO log error: 没有购物网站地址，或者购物网站api key
+
+    # 查询找到对应的购物网站
+    shop = db.session.execute(db.select(Shop).where(Shop.status==True).where(Shop.url==url)).scalars()
+    if len(shop) < 1: # 没有找到对应的购物网站
+        pass # TODO log error: 没有找到购物网站，记录url
+
+    if shop.apikey != merkey:
+        pass # TODO log error: 购物网站提供的api key不正确，记录url
 
     mode = request.form.get('mode', '1')
     # 创建订单对象
@@ -92,7 +95,57 @@ def stripe_payment():
     # 获取所有收款网站信息
     stripes = db.session.execute(db.select(Stripe).where(Stripe.status==True).order_by(Stripe.id.desc())).scalars()
 
-    return jsonify(order.id)
+    # 选择满足条件的stripe网站
+    # 金额 > 单笔最小收款金额
+    # 金额 < 单笔最大收款金额
+    # 金额 + 当前收款金额 < 限定收款金额
+    # 当前收款笔数 < 限定收款笔数
+    # curnum < totalnum
+
+    # 更新stripe
+    # 当前收款笔数+1 curnum += 1
+    # 当前收款金额+金额 curmoney += 
+    choice_stripe = None
+    for stripe in stripes:
+        if stripe.curnum >= stripe.totalnum:
+            continue # 收款笔数超出限制
+
+        if order.total > stripe.totalmoney - stripe.curmoney:
+            continue # 收款金额超出限定收款金额
+
+        if order.total < stripe.onemin or order.total > stripe.onemax:
+            continue # 单笔金额超出限制
+
+        choice_stripe = stripe
+
+    if choice_stripe is None:
+        pass # TODO log error: 没有可以使用的收款站，记录订单ID
+    else:
+        # 更新order的支付相关信息
+        order.account = stripe.email
+        order.paymode = stripe.mode
+        order.papalmode = stripe.pays
+        order.purl = stripe.purl
+        order.order_name = shop.paypalname
+
+        # 将更新写入数据库
+        db.session.commit()
+
+    ret = [
+        '',
+        {
+            "oid": order.id,
+            'purl': order.purl,
+            'email': stripe.email,
+            'mode': stripe.mode,
+            'pays': stripe.pays,
+            'shipping': 0,
+            'cid': stripe.lcid if stripe.mode==1 else stripe.scid,
+            'sid': stripe.lsid if stripe.mode==1 else stripe.ssid
+        }
+    ]
+
+    return jsonify(ret)
 
 def total(money, currency_code, order_id):
     if money is None:
