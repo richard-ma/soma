@@ -30,9 +30,11 @@ def stripe_payment():
         pass # TODO log error: 没有购物网站地址，或者购物网站api key
 
     # 查询找到对应的购物网站
-    shop = db.session.execute(db.select(Shop).where(Shop.status==True).where(Shop.url==url)).scalars()
-    if len(shop) < 1: # 没有找到对应的购物网站
+    shop_query = db.session.query(Shop).filter(Shop.status==True, Shop.url==url)
+    if shop_query.count() < 1: # 没有找到对应的购物网站
         pass # TODO log error: 没有找到购物网站，记录url
+
+    shop = shop_query.first()
 
     if shop.apikey != merkey:
         pass # TODO log error: 购物网站提供的api key不正确，记录url
@@ -122,10 +124,10 @@ def stripe_payment():
         pass # TODO log error: 没有可以使用的收款站，记录订单ID
     else:
         # 更新order的支付相关信息
-        order.account = stripe.email
-        order.paymode = stripe.mode
-        order.papalmode = stripe.pays
-        order.purl = stripe.purl
+        order.account = choice_stripe.email
+        order.paymode = choice_stripe.mode
+        order.papalmode = choice_stripe.pays
+        order.purl = choice_stripe.purl
         order.order_name = shop.paypalname
 
         # 将更新写入数据库
@@ -136,12 +138,12 @@ def stripe_payment():
         {
             "oid": order.id,
             'purl': order.purl,
-            'email': stripe.email,
-            'mode': stripe.mode,
-            'pays': stripe.pays,
+            'email': choice_stripe.email,
+            'mode': choice_stripe.mode,
+            'pays': choice_stripe.pays,
             'shipping': 0,
-            'cid': stripe.lcid if stripe.mode==1 else stripe.scid,
-            'sid': stripe.lsid if stripe.mode==1 else stripe.ssid
+            'cid': choice_stripe.lcid if choice_stripe.mode==1 else choice_stripe.scid,
+            'sid': choice_stripe.lsid if choice_stripe.mode==1 else choice_stripe.ssid
         }
     ]
 

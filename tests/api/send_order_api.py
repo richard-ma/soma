@@ -4,8 +4,8 @@ import requests
 if __name__ == "__main__":
     url = 'http://127.0.0.1:5000/api/stripe'
     data = {
-        'url': 'http://www.shoponline.com',
-        'merkey': 'merkey_value',
+        'url': 'http://www.hello.com',
+        'merkey': '5bab7d89abf98da08f662c481e6617cc',
         'mode': 'mode_value',
         'cardNumberKeyValue': 'cardNumberKeyValue_value',
         'expireMonth': 'expireMonth_value',
