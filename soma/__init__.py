@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for
 from soma.blueprints import api, order, shop, logs, stripe, settings
 from soma.models import db, migrate
-from soma.helpers import *
+import soma.helpers as helpers
 
 def create_app(config_filename=None):
     app = Flask(__name__)
@@ -24,10 +24,10 @@ def create_app(config_filename=None):
     # template filter
     @app.template_filter('timestamp_to_datetime')
     def timestamp_to_datetime(s):
-        return helper_timestamp_to_datetime(s)
+        return helpers.timestamp_to_datetime(s)
 
     @app.template_filter('status_display')
     def status_display(s):
-        return helper_status_display(s)
+        return helpers.status_display(s)
 
     return app

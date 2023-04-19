@@ -3,13 +3,13 @@ from random import choice, choices
 import hashlib
 
 
-def helper_datetime_to_timestamp(dt) -> int:
+def datetime_to_timestamp(dt) -> int:
     return int(round(dt.timestamp()))
 
-def helper_timestamp_to_datetime(s: int):
+def timestamp_to_datetime(s: int):
     return datetime.fromtimestamp(s)
 
-def helper_status_display(status: int):
+def status_display(status: int):
     if status == 1:
         return '已启用'
     elif status == 0:
@@ -21,7 +21,7 @@ def helper_generate_api_key(url: str, salt=None, salt_length=8) -> str:
     if salt is None:
         population = list('abcdefghijklmnopqrstuvwxyz1234567890')
         salt = ''.join(choices(population, k=salt_length))
-    timestamp = str(helper_datetime_to_timestamp(datetime.now()))
+    timestamp = str(datetime_to_timestamp(datetime.now()))
     params = [
         url,
         timestamp,
