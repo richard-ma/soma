@@ -8,6 +8,9 @@ def package_total_limitation(total: float, limitation: int) -> dict:
 def package_curnum_limitation(curnum: int, limitation: int) -> dict:
     return {'curnum': curnum, 'limitation': limitation}
 
+def package_total_limitation_curmoney(total: float, limitation: int, curmoney: float) -> dict:
+    return {'total': total, 'limitation': limitation, 'curmoeny': curmoney}
+
 @pytest.fixture
 def greater_than():
     first = random.randint(1, 100)
@@ -107,3 +110,17 @@ class TestLimitNum():
 
     def test_limitation_equal_to_curnum(self, limitation_equal_to_curnum):
         assert helpers.limit_num(**limitation_equal_to_curnum) is False
+
+class TestLimitMoney():
+    def test_limitation_is_zero(self):
+        assert helpers.limit_money(total=0, limitation=0, curmoney=0) is True
+        assert helpers.limit_money(total=100, limitation=0, curmoney=100) is True
+
+    def test_limitation_sub_curmoney_greater_than_total(self):
+        assert helpers.limit_money(total=1, limitation=100, curmoney=1) is True
+
+    def test_limitation_sub_curmoney_less_than_total(self):
+        assert helpers.limit_money(total=100, limitation=100, curmoney=1) is False
+
+    def test_limitation_sub_curmoney_equal_to_total(self):
+        assert helpers.limit_money(total=99, limitation=100, curmoney=1) is True

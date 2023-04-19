@@ -54,6 +54,13 @@ def limit_num(curnum: int, limitation: int) -> bool:
     else:
         return curnum < limitation
 
+# 收款金额限制
+def limit_money(total: float, limitation: float, curmoney: float) -> bool:
+    if limitation == 0:
+        return True
+    else:
+        return total <= limitation - curmoney
+
 
 if __name__ == "__main__":
     api_key = helper_generate_api_key("http://www.hello.com")
