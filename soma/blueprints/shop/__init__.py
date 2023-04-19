@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from soma.models import db, Shop
 from soma.forms import CreateShopForm
-from soma.helpers import *
+import soma.helpers as helpers
 
 
 bp = Blueprint('shop', __name__, url_prefix='/shop', template_folder='templates')
@@ -48,13 +48,13 @@ def create():
             paypalname = "paypal product",
             paypalname_me = '',
             donatename = '',
-            updatetime = helper_datetime_to_timestamp(datetime.now()),
+            updatetime = helpers.datetime_to_timestamp(datetime.now()),
             type = None,
             risk = None,
             admin_id = None,
         )
 
-        shop.apikey = helper_generate_api_key(shop.url)
+        shop.apikey = helpers.generate_api_key(shop.url)
 
         db.session.add(shop)
         db.session.commit()

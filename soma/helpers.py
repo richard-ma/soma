@@ -17,7 +17,7 @@ def status_display(status: int):
     else:
         return '未知'
 
-def helper_generate_api_key(url: str, salt=None, salt_length=8) -> str:
+def generate_api_key(url: str, salt=None, salt_length=8) -> str:
     if salt is None:
         population = list('abcdefghijklmnopqrstuvwxyz1234567890')
         salt = ''.join(choices(population, k=salt_length))
