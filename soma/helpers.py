@@ -33,17 +33,26 @@ def helper_generate_api_key(url: str, salt=None, salt_length=8) -> str:
     hash_func.update(''.join(params).encode())
     return hash_func.hexdigest()[:32]
 
+# 单笔收款最小金额限制
 def limit_onemin(total: float, limitation: int) -> bool:
     if limitation == 0:
         return True
     else:
         return total >= limitation
 
+# 单笔收款最大金额限制
 def limit_onemax(total: float, limitation: int) -> bool:
     if limitation == 0:
         return True
     else:
         return total <= limitation
+
+# 收款笔数限制
+def limit_num(curnum: int, limitation: int) -> bool:
+    if limitation == 0:
+        return True
+    else:
+        return curnum < limitation
 
 
 if __name__ == "__main__":

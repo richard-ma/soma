@@ -2,38 +2,74 @@ import pytest, random
 import soma.helpers as helpers
 
 
-def package_total_limitaion(total: float, limitation: int) -> dict:
+def package_total_limitation(total: float, limitation: int) -> dict:
     return {'total': total, 'limitation': limitation}
 
-@pytest.fixture
-def limitation_greater_than_total():
-    total = random.randint(1, 100)
-    limitation = total + 1
-    return package_total_limitaion(total, limitation)
+def package_curnum_limitation(curnum: int, limitation: int) -> dict:
+    return {'curnum': curnum, 'limitation': limitation}
 
 @pytest.fixture
-def limitation_less_than_total():
-    total = random.randint(1, 100)
-    limitation = total - 1
-    return package_total_limitaion(total, limitation)
+def greater_than():
+    first = random.randint(1, 100)
+    second = first + 1
+    return (first, second)
 
 @pytest.fixture
-def limitation_equal_to_total():
-    total = limitation = random.randint(1, 100)
-    return package_total_limitaion(total, limitation)
+def less_than():
+    first = random.randint(1, 100)
+    second = first - 1
+    return (first, second)
+
+@pytest.fixture
+def equal_to():
+    first = random.randint(1, 100)
+    second = first
+    return (first, second)
+
+@pytest.fixture
+def limitation_greater_than_total(greater_than):
+    return package_total_limitation(*greater_than)
+
+@pytest.fixture
+def limitation_less_than_total(less_than):
+    return package_total_limitation(*less_than)
+
+@pytest.fixture
+def limitation_equal_to_total(equal_to):
+    return package_total_limitation(*equal_to)
 
 @pytest.fixture
 def limitation_and_total_is_zero():
-    return package_total_limitaion(0, 0)
+    return package_total_limitation(0, 0)
 
 @pytest.fixture
-def only_limitation_is_zero():
-    return package_total_limitaion(100, 0)
+def only_limitation_of_total_is_zero():
+    return package_total_limitation(100, 0)
+
+@pytest.fixture
+def limitation_greater_than_curnum(greater_than):
+    return package_curnum_limitation(*greater_than)
+
+@pytest.fixture
+def limitation_less_than_curnum(less_than):
+    return package_curnum_limitation(*less_than)
+
+@pytest.fixture
+def limitation_equal_to_curnum(equal_to):
+    return package_curnum_limitation(*equal_to)
+
+@pytest.fixture
+def limitation_and_curnum_is_zero():
+    return package_curnum_limitation(0, 0)
+
+@pytest.fixture
+def only_limitation_of_curnum_is_zero():
+    return package_curnum_limitation(100, 0)
 
 class TestLimitOnemin():
-    def test_limitation_is_zero(self, limitation_and_total_is_zero, only_limitation_is_zero):
+    def test_limitation_is_zero(self, limitation_and_total_is_zero, only_limitation_of_total_is_zero):
         assert helpers.limit_onemin(**limitation_and_total_is_zero) is True
-        assert helpers.limit_onemin(**only_limitation_is_zero) is True
+        assert helpers.limit_onemin(**only_limitation_of_total_is_zero) is True
 
     def test_limitation_greater_than_total(self, limitation_greater_than_total):
         assert helpers.limit_onemin(**limitation_greater_than_total) is False
@@ -45,9 +81,9 @@ class TestLimitOnemin():
         assert helpers.limit_onemin(**limitation_equal_to_total) is True
 
 class TestLimitOnemax():
-    def test_limitation_is_zero(self, limitation_and_total_is_zero, only_limitation_is_zero):
+    def test_limitation_is_zero(self, limitation_and_total_is_zero, only_limitation_of_total_is_zero):
         assert helpers.limit_onemax(**limitation_and_total_is_zero) is True
-        assert helpers.limit_onemax(**only_limitation_is_zero) is True
+        assert helpers.limit_onemax(**only_limitation_of_total_is_zero) is True
 
     def test_limitation_greater_than_total(self, limitation_greater_than_total):
         assert helpers.limit_onemax(**limitation_greater_than_total) is True
@@ -57,3 +93,17 @@ class TestLimitOnemax():
 
     def test_limitation_equal_to_total(self, limitation_equal_to_total):
         assert helpers.limit_onemax(**limitation_equal_to_total) is True
+
+class TestLimitNum():
+    def test_limitation_is_zero(self, limitation_and_curnum_is_zero, only_limitation_of_curnum_is_zero):
+        assert helpers.limit_num(**limitation_and_curnum_is_zero) is True
+        assert helpers.limit_num(**only_limitation_of_curnum_is_zero) is True
+
+    def test_limitation_greater_than_curnum(self, limitation_greater_than_curnum):
+        assert helpers.limit_num(**limitation_greater_than_curnum) is True
+
+    def test_limitation_less_than_curnum(self, limitation_less_than_curnum):
+        assert helpers.limit_num(**limitation_less_than_curnum) is False
+
+    def test_limitation_equal_to_curnum(self, limitation_equal_to_curnum):
+        assert helpers.limit_num(**limitation_equal_to_curnum) is False
