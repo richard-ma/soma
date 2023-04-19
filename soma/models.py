@@ -108,3 +108,11 @@ class Currency(db.Model):
 
     def code_is(self, currency_code: str) -> bool:
         return self.code.upper() == currency_code.upper()
+
+class Log(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    errorno = db.Column(db.String(100), nullable=False, comment='错误码')
+    desc = db.Column(db.String(255), nullable=False, comment='详细描述')
+    createtime = db.Column(db.Integer, nullable=False, comment='创建时间')
+    status = db.Column(db.String(1), nullable=False, default='0')
+    admin_id = db.Column(db.Integer, default=None)
