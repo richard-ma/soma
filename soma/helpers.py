@@ -33,6 +33,12 @@ def helper_generate_api_key(url: str, salt=None, salt_length=8) -> str:
     hash_func.update(''.join(params).encode())
     return hash_func.hexdigest()[:32]
 
+def helper_limit_onemin(total: float, onemin: int) -> bool:
+    if onemin == 0:
+        return True
+    else:
+        return total >= onemin
+
 
 if __name__ == "__main__":
     api_key = helper_generate_api_key("http://www.hello.com")
