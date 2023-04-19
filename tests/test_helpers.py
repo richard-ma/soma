@@ -69,7 +69,7 @@ def limitation_and_curnum_is_zero():
 def only_limitation_of_curnum_is_zero():
     return package_curnum_limitation(100, 0)
 
-class TestLimitOnemin():
+class TestLimitOnemin:
     def test_limitation_is_zero(self, limitation_and_total_is_zero, only_limitation_of_total_is_zero):
         assert helpers.limit_onemin(**limitation_and_total_is_zero) is True
         assert helpers.limit_onemin(**only_limitation_of_total_is_zero) is True
@@ -83,7 +83,7 @@ class TestLimitOnemin():
     def test_limitation_equal_to_total(self, limitation_equal_to_total):
         assert helpers.limit_onemin(**limitation_equal_to_total) is True
 
-class TestLimitOnemax():
+class TestLimitOnemax:
     def test_limitation_is_zero(self, limitation_and_total_is_zero, only_limitation_of_total_is_zero):
         assert helpers.limit_onemax(**limitation_and_total_is_zero) is True
         assert helpers.limit_onemax(**only_limitation_of_total_is_zero) is True
@@ -97,7 +97,7 @@ class TestLimitOnemax():
     def test_limitation_equal_to_total(self, limitation_equal_to_total):
         assert helpers.limit_onemax(**limitation_equal_to_total) is True
 
-class TestLimitNum():
+class TestLimitNum:
     def test_limitation_is_zero(self, limitation_and_curnum_is_zero, only_limitation_of_curnum_is_zero):
         assert helpers.limit_num(**limitation_and_curnum_is_zero) is True
         assert helpers.limit_num(**only_limitation_of_curnum_is_zero) is True
@@ -111,7 +111,7 @@ class TestLimitNum():
     def test_limitation_equal_to_curnum(self, limitation_equal_to_curnum):
         assert helpers.limit_num(**limitation_equal_to_curnum) is False
 
-class TestLimitMoney():
+class TestLimitMoney:
     def test_limitation_is_zero(self):
         assert helpers.limit_money(total=0, limitation=0, curmoney=0) is True
         assert helpers.limit_money(total=100, limitation=0, curmoney=100) is True
@@ -125,7 +125,7 @@ class TestLimitMoney():
     def test_limitation_sub_curmoney_equal_to_total(self):
         assert helpers.limit_money(total=99, limitation=100, curmoney=1) is True
 
-class TestStatusDisplay():
+class TestStatusDisplay:
     def test_status_enabled_display(self):
         assert helpers.status_display(1) == '已启用'
 
@@ -134,3 +134,15 @@ class TestStatusDisplay():
 
     def test_status_unknown_display(self):
         assert helpers.status_display(random.randint(2, 10)) == '未知'
+
+class TestGenerateApiKey:
+    def test_api_key_length(self):
+        for _ in range(5):
+            assert len(helpers.generate_api_key('http://www.test.com')) == 32
+
+    def test_different_time_gen_different_api_key(self):
+        keys = list()
+        for _ in range(5):
+            keys.append(helpers.generate_api_key('the same url'))
+        f, s = random.sample(keys, k=2)
+        assert f != s
