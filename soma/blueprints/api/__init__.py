@@ -102,11 +102,6 @@ def stripe_payment():
     # 金额 < 单笔最大收款金额
     # 金额 + 当前收款金额 < 限定收款金额
     # 当前收款笔数 < 限定收款笔数
-    # curnum < totalnum
-
-    # 更新stripe
-    # 当前收款笔数+1 curnum += 1
-    # 当前收款金额+金额 curmoney += 
     choice_stripe = None
     for stripe in stripes:
         if helpers.limit_num(curnum=stripe.curnum, limitation=stripe.totalnum) is False:
