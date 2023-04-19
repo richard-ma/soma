@@ -33,11 +33,17 @@ def helper_generate_api_key(url: str, salt=None, salt_length=8) -> str:
     hash_func.update(''.join(params).encode())
     return hash_func.hexdigest()[:32]
 
-def helper_limit_onemin(total: float, onemin: int) -> bool:
-    if onemin == 0:
+def limit_onemin(total: float, limitation: int) -> bool:
+    if limitation == 0:
         return True
     else:
-        return total >= onemin
+        return total >= limitation
+
+def limit_onemax(total: float, limitation: int) -> bool:
+    if limitation == 0:
+        return True
+    else:
+        return total <= limitation
 
 
 if __name__ == "__main__":
