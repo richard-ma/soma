@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from soma.models import db, Stripe, Order, Shop, Currency
-from soma.helpers import *
+import soma.helpers as helpers
 
 
 bp = Blueprint('api', __name__, url_prefix='/api')
@@ -66,9 +66,9 @@ def stripe_payment():
         goodsname = request.form.get('goodsname', ''),
         useragent = ','.join([request.form.get('useragent1', ''), request.form.get('useragent2', '')]),
         comment = request.form.get('comment', ''),
-        createtime = helper_datetime_to_timestamp(datetime.now()),
+        createtime = helpers.helper_datetime_to_timestamp(datetime.now()),
         # 支付结果相关参数
-        paytime = helper_datetime_to_timestamp(datetime.now()), # 支付成功的时间
+        paytime = helpers.helper_datetime_to_timestamp(datetime.now()), # 支付成功的时间
         transno = '', # 支付交易号
         account = '', # stripe的email账号
         status = 1, # 订单状态
@@ -109,16 +109,19 @@ def stripe_payment():
     # 当前收款金额+金额 curmoney += 
     choice_stripe = None
     for stripe in stripes:
-        if stripe.curnum >= stripe.totalnum:
+        if helpers.limit_num(curnum=stripe.curnum, limitation=stripe.totalnum) is False:
             continue # 收款笔数超出限制
 
-        if order.total > stripe.totalmoney - stripe.curmoney:
+        if helpers.limit_money(total=order.total, limitation=stripe.totalmoney, curmoney=stripe.curmoney) is False:
             continue # 收款金额超出限定收款金额
 
-        if order.total < stripe.onemin or order.total > stripe.onemax:
-            continue # 单笔金额超出限制
+        if helpers.limit_onemin(total=order.total, limitation=stripe.onemin) is False:
+            continue # 单笔金额小于最小金额限制
 
-        choice_stripe = stripe
+        if helpers.limit_onemax(total=order.total, limitation=stripe.onemax) is False:
+            continue # 单笔金额大于最大金额限制
+
+        choice_stripe = stripe # 满足以上限制条件的付款网站
 
     if choice_stripe is None:
         pass # TODO log error: 没有可以使用的收款站，记录订单ID
