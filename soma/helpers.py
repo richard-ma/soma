@@ -60,8 +60,3 @@ def limit_money(total: float, limitation: float, curmoney: float) -> bool:
         return True
     else:
         return total <= limitation - curmoney
-
-
-if __name__ == "__main__":
-    api_key = helper_generate_api_key("http://www.hello.com")
-    print(api_key)
