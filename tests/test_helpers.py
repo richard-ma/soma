@@ -38,3 +38,10 @@ class TestLimitOnemin(unittest.TestCase):
             'onemin': 100,
         }
         self.assertTrue(helpers.helper_limit_onemin(**params))
+
+    def test_limit_equal_total(self):
+        params = {
+            'total': 100,
+            'onemin': 100,
+        }
+        self.assertTrue(helpers.helper_limit_onemin(**params))
