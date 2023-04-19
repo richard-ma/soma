@@ -124,3 +124,13 @@ class TestLimitMoney():
 
     def test_limitation_sub_curmoney_equal_to_total(self):
         assert helpers.limit_money(total=99, limitation=100, curmoney=1) is True
+
+class TestStatusDisplay():
+    def test_status_one_display(self):
+        assert helpers.status_display(1) == '已启用'
+
+    def test_status_zero_display(self):
+        assert helpers.status_display(0) == '已禁用'
+
+    def test_status_other_display(self):
+        assert helpers.status_display(random.randint(2, 10)) == '未知'
