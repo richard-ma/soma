@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block toolbar %}
+{% endblock %}
+
+{% block content %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">编号</th>
+        <th scope="col">错误代码</th>
+        <th scope="col">详细描述</th>
+        <th scope="col">创建时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+      <tr>
+        <td>{{ log.id }}</td>
+        <td>{{ log.errorno }}</td>
+        <td>{{ log.desc }}</td>
+        <td>{{ log.createtime | timestamp_to_datetime }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
