@@ -152,5 +152,5 @@ class TestAddLog:
     def test_add_and_delete_log(self, app):
         with app.app_context():
             log_id = helpers.add_log(10001, "Test log message")
-            assert log_id is not None
-            assert helpers.delete_log(log_id) is True
+            assert log_id is not None # 检查创建log是否成功
+            assert helpers.delete_log(log_id) is True # 检查删除log是否成功
