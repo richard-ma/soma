@@ -66,9 +66,9 @@ def stripe_payment():
         goodsname = request.form.get('goodsname', ''),
         useragent = ','.join([request.form.get('useragent1', ''), request.form.get('useragent2', '')]),
         comment = request.form.get('comment', ''),
-        createtime = helpers.helper_datetime_to_timestamp(datetime.now()),
+        createtime = helpers.datetime_to_timestamp(datetime.now()),
         # 支付结果相关参数
-        paytime = helpers.helper_datetime_to_timestamp(datetime.now()), # 支付成功的时间
+        paytime = helpers.datetime_to_timestamp(datetime.now()), # 支付成功的时间
         transno = '', # 支付交易号
         account = '', # stripe的email账号
         status = 1, # 订单状态

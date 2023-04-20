@@ -51,14 +51,14 @@ def create():
             totalnum = request.form['totalnum'],
             status = 1 if 'status' in request.form.keys() else 0,
             beizhu = request.form['beizhu'],
-            updatetime = helper_datetime_to_timestamp(datetime.now()),
+            updatetime = datetime_to_timestamp(datetime.now()),
             scid = '',
             lcid = '',
             ssid = '',
             lsid = '',
             type = '0',
             sid = 0,
-            lasttime = helper_datetime_to_timestamp(datetime.now()),
+            lasttime = datetime_to_timestamp(datetime.now()),
             admin_id = 0,
             purl = request.form['purl']
         )
