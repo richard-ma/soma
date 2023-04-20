@@ -1,5 +1,24 @@
-import os, sys
+import os, sys, pytest
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(CURRENT_DIR)
 sys.path.insert(0, BASE_DIR)
+
+from soma import create_app
+
+@pytest.fixture
+def app():
+    app = create_app()
+    app.config.update({
+        'TESTING': True,
+    })
+
+    yield app
+
+@pytest.fixture
+def client(app):
+    return app.test_client()
+
+@pytest.fixture
+def runner(app):
+    return app.test_cli_runner()
