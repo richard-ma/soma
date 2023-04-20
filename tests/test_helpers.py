@@ -1,5 +1,6 @@
 import pytest, random
 import soma.helpers as helpers
+from tests import *
 
 
 def package_total_limitation(total: float, limitation: int) -> dict:
@@ -146,3 +147,10 @@ class TestGenerateApiKey:
             keys.append(helpers.generate_api_key('the same url'))
         f, s = random.sample(keys, k=2)
         assert f != s
+
+class TestAddLog:
+    def test_add_and_delete_log(self, app):
+        with app.app_context():
+            log_id = helpers.add_log(10001, "Test log message")
+            assert log_id is not None
+            assert helpers.delete_log(log_id) is True

@@ -1,6 +1,8 @@
 from datetime import datetime
 from random import choice, choices
 import hashlib
+from soma.models import db, Log
+import soma.helpers as helpers
 
 
 def datetime_to_timestamp(dt) -> int:
@@ -60,3 +62,25 @@ def limit_money(total: float, limitation: float, curmoney: float) -> bool:
         return True
     else:
         return total <= limitation - curmoney
+
+def add_log(errorno: int, message: str):
+    l = Log(
+        errorno = str(errorno),
+        desc = message,
+        createtime = helpers.datetime_to_timestamp(datetime.now()),
+    )
+    try:
+        db.session.add(l)
+        db.session.commit()
+    except Exception as e:
+        return None
+    return l.id 
+
+def delete_log(id) -> bool:
+    try:
+        l = db.session.execute(db.select(Log).where(Log.id==id)).scalar()
+        db.session.delete(l)
+        db.session.commit()
+    except Exception as e:
+        return False
+    return True
