@@ -2,11 +2,17 @@ from flask import Flask, redirect, url_for
 from soma.blueprints import api, order, shop, logs, stripe, settings
 from soma.models import db, migrate
 import soma.helpers as helpers
+import os, sys
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CURRENT_DIR)
 
 def create_app(config_filename=None):
     app = Flask(__name__)
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://soma:qwerty1234@localhost/soma'
+    # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://soma:qwerty1234@localhost/soma' # mysqlclient
+    app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///soma.db' # sqlite3
+
     db.init_app(app)
     migrate.init_app(app, db)
 
