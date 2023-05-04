@@ -1,6 +1,5 @@
 import pytest, random
 import soma.helpers as helpers
-from tests import *
 
 
 def package_total_limitation(total: float, limitation: int) -> dict:

@@ -14,7 +14,8 @@ def app():
         'TESTING': True,
         'SQLALCHEMY_DATABASE_URI': 'sqlite:///', # sqlite3 memory database
     })
-    db.create_all() # Create all tables
+    with app.app_context():
+        db.create_all() # Create all tables
 
     yield app
 
