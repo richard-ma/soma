@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from soma.models import db, Stripe, Order, Shop, Currency
 import soma.helpers as helpers
+from datetime import datetime
 
 
 bp = Blueprint('api', __name__, url_prefix='/api')
@@ -25,6 +26,7 @@ def post_form_test():
 def stripe_payment():
     url = request.form.get('url', '')
     merkey = request.form.get('merkey', '')
+    current_app.logger.info("url: " + url)
 
     if url == '' or merkey == '':
         pass # TODO log error: 没有购物网站地址，或者购物网站api key
