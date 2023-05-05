@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from soma.models import db, Shop
 from soma.forms import CreateShopForm
 import soma.helpers as helpers
+from datetime import datetime
 
 
 bp = Blueprint('shop', __name__, url_prefix='/shop', template_folder='templates')
