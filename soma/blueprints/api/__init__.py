@@ -21,7 +21,7 @@ def post_form_test():
     return jsonify(request.form)
 
 # insert order data and select payment stripe site
-@bp.route('/stripe', methods=['GET', 'POST']) # TODO remove GET method
+@bp.route('/stripe/', methods=['GET', 'POST']) # TODO remove GET method
 def stripe_payment():
     url = request.form.get('url', '')
     merkey = request.form.get('merkey', '')
