@@ -133,9 +133,10 @@ def stripe_payment():
         # 将更新写入数据库
         db.session.commit()
 
-    ret = [
-        '',
-        {
+    ret = {
+        'code': 1, # 1 successful, other failed
+        'msg': 'error', # TODO add error message
+        'data': {
             "oid": order.id,
             'purl': order.purl,
             'email': choice_stripe.email,
@@ -144,8 +145,8 @@ def stripe_payment():
             'shipping': 0,
             'cid': choice_stripe.lcid if choice_stripe.mode==1 else choice_stripe.scid,
             'sid': choice_stripe.lsid if choice_stripe.mode==1 else choice_stripe.ssid
-        }
-    ]
+        },
+    }
 
     return jsonify(ret)
 
