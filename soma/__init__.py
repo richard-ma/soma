@@ -2,7 +2,9 @@ from flask import Flask, redirect, url_for
 from soma.blueprints import api, order, shop, logs, stripe, settings
 from soma.models import db, migrate
 import soma.helpers as helpers
-import os, sys
+import os
+import sys
+import logging
 from werkzeug.utils import import_string
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
