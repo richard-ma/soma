@@ -37,6 +37,27 @@ def create_app(config_filename=None):
     cfg = import_string(cfg_name)()
     app.config.from_object(cfg)
 
+    # add logging handler
+    logging_filename  = app.config.get('LOGGING_FILENAME', e + '.log')
+    rotating_file_handler = RotatingFileHandler(
+        os.path.join(app.instance_path, logging_filename),
+        maxBytes=app.config.get('LOGGING_FILE_MAX_BYTES', 1024*1024),
+        backupCount=app.config.get('LOGGING_FILE_BACKUP_COUNT', 10),
+    )
+    # set logging format
+    logging_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s-%(funcName)s'
+    logging_formatter = logging.Formatter(logging_format)
+    rotating_file_handler.setFormatter(logging_formatter)
+    # add handler to logger
+    # TODO if you use flask-sqlalchemy add it's logger to this list
+    for logger in (app.logger, ):
+        logger.addHandler(rotating_file_handler)
+        logger.setLevel(log_level)
+
+    # logging configurations
+    app.logger.debug("Loading Configration: " + cfg_name)
+    app.logger.debug("Configration loaded: " + str(cfg))
+
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://soma:qwerty1234@localhost/soma' # mysqlclient
     app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///soma.db' # sqlite3
 
