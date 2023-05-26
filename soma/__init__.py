@@ -6,6 +6,7 @@ import os
 import sys
 import logging
 from werkzeug.utils import import_string
+from logging.handlers import RotatingFileHandler
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(CURRENT_DIR)
