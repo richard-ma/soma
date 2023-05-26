@@ -19,6 +19,17 @@ def create_app(config_filename=None):
     # get flask environment variable
     e = os.environ.get('FLASK_ENV', 'production') # default flask environment is production
 
+    # set running mode
+    if e == 'dev':
+        cfg_name = 'config.DevelopmentConfig'
+        log_level = logging.DEBUG
+    elif e == 'testing':
+        cfg_name = 'config.TestingConfig'
+        log_level = logging.DEBUG
+    else: # production as default
+        cfg_name = 'config.ProductionConfig'
+        log_level = logging.WARNING
+
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://soma:qwerty1234@localhost/soma' # mysqlclient
     app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///soma.db' # sqlite3
 
