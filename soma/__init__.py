@@ -58,9 +58,6 @@ def create_app(config_filename=None):
     app.logger.debug("Loading Configration: " + cfg_name)
     app.logger.debug("Configration loaded: " + str(cfg))
 
-    # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://soma:qwerty1234@localhost/soma' # mysqlclient
-    app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///soma.db' # sqlite3
-
     db.init_app(app)
     migrate.init_app(app, db)
 
