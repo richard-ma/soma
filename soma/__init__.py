@@ -16,6 +16,9 @@ def create_app(config_filename=None):
     except OSError:
         pass # instance folder exists
 
+    # get flask environment variable
+    e = os.environ.get('FLASK_ENV', 'production') # default flask environment is production
+
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://soma:qwerty1234@localhost/soma' # mysqlclient
     app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///soma.db' # sqlite3
 
