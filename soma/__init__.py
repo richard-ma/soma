@@ -3,6 +3,7 @@ from soma.blueprints import api, order, shop, logs, stripe, settings
 from soma.models import db, migrate
 import soma.helpers as helpers
 import os, sys
+from werkzeug.utils import import_string
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(CURRENT_DIR)
@@ -29,6 +30,10 @@ def create_app(config_filename=None):
     else: # production as default
         cfg_name = 'config.ProductionConfig'
         log_level = logging.WARNING
+
+    # load configration
+    cfg = import_string(cfg_name)()
+    app.config.from_object(cfg)
 
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://soma:qwerty1234@localhost/soma' # mysqlclient
     app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///soma.db' # sqlite3
