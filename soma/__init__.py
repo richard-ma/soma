@@ -10,6 +10,12 @@ BASE_DIR = os.path.dirname(CURRENT_DIR)
 def create_app(config_filename=None):
     app = Flask(__name__)
 
+    # ensure the instance folder exists
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass # instance folder exists
+
     # app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql://soma:qwerty1234@localhost/soma' # mysqlclient
     app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///soma.db' # sqlite3
 
