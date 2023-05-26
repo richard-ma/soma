@@ -138,7 +138,7 @@ def stripe_payment():
         'msg': 'error', # TODO add error message
         'data': {
             "oid": order.id,
-            'purl': order.purl,
+            'purl': order.purl + "/checkout.php",
             'email': choice_stripe.email,
             'mode': choice_stripe.mode,
             'pays': choice_stripe.pays,
